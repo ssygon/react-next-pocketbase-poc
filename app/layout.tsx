@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from 'next/link';
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -16,7 +17,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body>
+        <main className="p-3">
+          <nav className="ml-[-0.5rem] mr-[-0.5rem]">
+            <Link href="/" className="inline-flex px-2 py-3 font-bold hover:underline">
+              Home
+            </Link>
+            <Link href="/notes" className="inline-flex px-2 py-3 font-bold hover:underline">
+              Notes
+            </Link>
+          </nav>
+          {children}
+        </main>
+      </body>
     </html>
   );
 }
