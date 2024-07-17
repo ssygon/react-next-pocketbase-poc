@@ -6,6 +6,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --code-background-rgb: 240, 240, 240; 
 }
 
 @media (prefers-color-scheme: dark) {
@@ -26,6 +27,18 @@ h1,h2,h3,h4,h5,h6 {
 
 h1 {
   font-size: 2rem;
+}
+
+p {
+  line-height: 1.7;
+}
+
+code {
+  display: inline-flex;
+  line-height: 1;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.5rem;
+  background: rgb(var(--code-background-rgb));
 }
 
 @layer utilities {
