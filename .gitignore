@@ -34,3 +34,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# pocketbase
+# NOTE: normally would add .gitignore /pb_data (but commited to pull down db on local)
+#/pb_data
+pocketbase.exe
