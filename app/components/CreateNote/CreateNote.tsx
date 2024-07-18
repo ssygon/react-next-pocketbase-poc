@@ -3,14 +3,14 @@
 import { config } from '../../../config';
 import PocketBase from "pocketbase";
 import { useState } from 'react';
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 const CreateNote = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  // const router = useRouter();
+  const router = useRouter();
 
   const create = async () => {
     try {
@@ -26,7 +26,7 @@ const CreateNote = () => {
 
       closeDialog();
 
-      // router.refresh();
+      router.push('/notes', {});
     } catch (error) {
       console.error('Error creating a note:', error);
     }
