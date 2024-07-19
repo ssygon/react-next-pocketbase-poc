@@ -1,6 +1,6 @@
 'use client';
 
-import { addNote } from "@/app/actions";
+import { addNote } from "@/app/notes/actions";
 import { useState, useEffect } from 'react';
 
 const CreateNote = () => {
