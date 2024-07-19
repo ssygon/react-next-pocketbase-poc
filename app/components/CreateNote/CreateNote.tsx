@@ -1,36 +1,46 @@
 'use client';
 
-import { config } from '../../../config';
-import PocketBase from "pocketbase";
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { addNote } from "@/app/actions";
+import { useState, useEffect } from 'react';
 
 const CreateNote = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [creating, setCreating] = useState(false);
 
-  const router = useRouter();
+  useEffect(() => {
+    const fetchData = async () => {
+      if (creating) {
+        try {
+          const record = {
+            title,
+            content,
+          };
 
-  const create = async () => {
-    try {
-      const db = new PocketBase(config.pocketbaseAPIBaseUrl);
+          await addNote(record);
 
-      const record = await db.collection('notes').create({
-        title,
-        content,
-      });
+          setContent('');
+          setTitle('');
 
-      setContent('');
-      setTitle('');
+          closeDialog();
 
-      closeDialog();
+          console.log('Successfully created a note');
+        } catch (error) {
+          console.error('Error creating a note:', error);
+        } finally {
+          setCreating(false);
+        }
+      }
+    };
 
-      router.push('/notes', {});
-    } catch (error) {
-      console.error('Error creating a note:', error);
-    }
-  }
+    fetchData();
+  }, [creating, title, content]);
+
+  const create = (e: any) => {
+    e.preventDefault();
+    setCreating(true);
+  };
 
   const closeDialog = () => {
     setDialogOpen(false);
@@ -46,7 +56,7 @@ const CreateNote = () => {
       {dialogOpen && (
         <div className="dialog">
           <form onSubmit={create}>
-            <div className="flex flex-col px-4 py-3">
+            <div className="flex flex-col px-4 pt-3">
               <h3>Add a Note</h3>
               <input
                 type="text"
@@ -60,7 +70,7 @@ const CreateNote = () => {
                 onChange={(e) => setContent(e.target.value)}
               />
             </div>
-            <div className="px-4 py-3 sm:flex sm:justify-end sm:px-6">
+            <div className="px-4 py-3 sm:flex sm:justify-end sm:px-4">
               <button className="btn" type="submit">
                 Create note
               </button>
