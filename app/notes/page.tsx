@@ -5,7 +5,6 @@ import CreateNote from "../components/CreateNote/CreateNote";
 const NotesPage = async () => {
 
   let response = await checkPocketbaseServerisOnline();
-
   if (!response) {
     return (
       <>
@@ -19,21 +18,21 @@ const NotesPage = async () => {
       </>
     );
   }
+  else {
+    const notes = await getNotes();
 
-
-  const notes = await getNotes();
-
-  return(
-    <>
-      <h1>Notes Page</h1>
-      <CreateNote />
-      <div className="grid gap-x-4 gap-y-4 grid-cols-2 mt-4 sm:grid-cols-3 md:grid-cols-4">
-        {notes.map((note) => (
-            <Note key={note.id} id={note.id} title={note?.title} content={note?.content}/>
-        ))}
-      </div>
-    </>
-  );
+    return(
+      <>
+        <h1>Notes Page</h1>
+        <CreateNote />
+        <div className="grid gap-x-4 gap-y-4 grid-cols-2 mt-4 sm:grid-cols-3 md:grid-cols-4">
+          {notes.map((note) => (
+              <Note key={note.id} id={note.id} title={note?.title} content={note?.content}/>
+          ))}
+        </div>
+      </>
+    );
+  }
 
 }
 

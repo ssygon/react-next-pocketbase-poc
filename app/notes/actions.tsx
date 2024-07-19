@@ -8,12 +8,30 @@ const db = new PocketBase(config.pocketbaseAPIBaseUrl);
 
 // Checks if the PocketBase server is running
 const checkPocketbaseServerisOnline = async () => {
+  let status = false;
+
   try {
-    await db.health.check();
-    console.error('PocketBase server running');
-    return true;
+    // There is currently an issue with pocketbase db status check() method always returning true when server has not started!
+    // const response = await db.health.check();
+    // console.log(response);
+    // if (response.code === 200) {
+    //   console.log('PocketBase server is running');
+    //   return true;
+    // }
+
+    // http://127.0.0.1:8090/api/health
+    const response = await fetch(`${config.pocketbaseAPIBaseUrl}/api/health`, { cache: 'no-store' });
+    const data = await response.json();
+    
+    if (data.code === 200) {
+      console.log('PocketBase server is running');
+      return true;
+    } else {
+      console.error('PocketBase server returned an error:', data.message);
+      return false;
+    }
   } catch (error) {
-    console.error('PocketBase server is not running:', error);
+    console.error('PocketBase server returned an error:', error);
     return false;
   }
 };
