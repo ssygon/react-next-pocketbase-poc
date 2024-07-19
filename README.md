@@ -2,6 +2,9 @@ This is a [Next.js](https://nextjs.org/) single page application (SPA) proof of 
 
 Pocketbase is a lightweight server (using SQLite) to create/manage datamodels from which data can be fetched through their API.
 
+<img width="555" alt="_react-next-pocketbase-poc-screenshot-1" src="https://github.com/user-attachments/assets/49139ab3-f4e9-4569-9dc9-2503d412d1df">
+
+
 ## Getting Started
 
 First in the terminal run to install package:
