@@ -8,8 +8,6 @@ const db = new PocketBase(config.pocketbaseAPIBaseUrl);
 
 // Checks if the PocketBase server is running
 const checkPocketbaseServerisOnline = async () => {
-  let status = false;
-
   try {
     // There is currently an issue with pocketbase db status check() method always returning true when server has not started!
     // const response = await db.health.check();
