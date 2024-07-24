@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from 'next/link';
-import { Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+import { config } from '@/config';
+import { StoreContextProvider } from '@/app/context/store';
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,20 +16,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        <main className="p-3">
-          <nav className="ml-[-0.5rem] mr-[-0.5rem]">
-            <Link href="/" className="inline-flex px-2 py-3 font-bold hover:underline">
-              Home
-            </Link>
-            <Link href="/notes" className="inline-flex px-2 py-3 font-bold hover:underline">
-              Notes
-            </Link>
-          </nav>
-          {children}
-        </main>
-      </body>
-    </html>
+    <StoreContextProvider {...config}>
+      <html lang="en">
+        <body>
+          <main className="p-3">
+            <nav className="ml-[-0.5rem] mr-[-0.5rem]">
+              <Link href="/" className="inline-flex px-2 py-3 font-bold hover:underline">
+                Home
+              </Link>
+              <Link href="/notes" className="inline-flex px-2 py-3 font-bold hover:underline">
+                Notes
+              </Link>
+            </nav>
+            {children}
+          </main>
+        </body>
+      </html>
+    </StoreContextProvider>
   );
 }
